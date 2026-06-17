@@ -17,6 +17,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./.database:/var/lib/postgresql/data
+    environment:
+      - is_central_node=${is_central_node:-false}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
       interval: 5s
