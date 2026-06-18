@@ -38,6 +38,26 @@ services:
     volumes:
       - ./ingest_file_h360tk.py:/scripts/ingest_file_h360tk.py
       - .upload:/data:rw
+    
+  exporter:
+    image: simpledotorg/heart360tk-exporter:${HEART360TK_VERSION}
+    container_name: h360tk-exporter
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      - is_central_node=${is_central_node}
+      - SOURCE_KEY=${SOURCE_KEY}
+      - SOURCE_VERSION=${HEART360TK_VERSION}
+      - EXPORT_CRON=${EXPORT_CRON}
+      - UPLOAD_PROTOCOL=${UPLOAD_PROTOCOL}
+      - UPLOAD_DEST_PATH=${UPLOAD_DEST_PATH}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=heart360tk
+      - POSTGRES_PASSWORD=YmE4ZTk0OGI0OTNmNGU5YmFjZDY1YTA0
+    volumes:
+      - .export:/export:rw
 
 ###
 # For now, still taken from the base image
