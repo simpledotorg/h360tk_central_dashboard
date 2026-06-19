@@ -48,7 +48,6 @@ services:
     environment:
       - is_central_node=${is_central_node}
       - SOURCE_KEY=${SOURCE_KEY}
-      - SOURCE_VERSION=${HEART360TK_VERSION}
       - EXPORT_CRON=${EXPORT_CRON}
       - UPLOAD_PROTOCOL=${UPLOAD_PROTOCOL}
       - UPLOAD_DEST_PATH=${UPLOAD_DEST_PATH}
