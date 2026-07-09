@@ -46,7 +46,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - is_central_node=${is_central_node}
+      - is_central_node=${is_central_node:-true}
       - SOURCE_KEY=${SOURCE_KEY}
       - EXPORT_CRON=${EXPORT_CRON}
       - UPLOAD_PROTOCOL=${UPLOAD_PROTOCOL}
