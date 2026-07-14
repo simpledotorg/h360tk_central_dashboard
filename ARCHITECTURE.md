@@ -1,8 +1,8 @@
-# H360TK Demo – Architecture Document
+# H360TK Central Core – Architecture Document
 
 ## 1. Overview
 
-The H360TK Demo is a containerized system designed to ingest, process, and visualize patient health data. It enables users to upload structured datasets (Excel/CSV files), transform them into a normalized database schema, and explore insights through dashboards.
+The H360TK Central Core is a containerized system designed to ingest, process, and visualize patient health data. It enables users to upload structured datasets (Excel/CSV files), transform them into a normalized database schema, and explore insights through dashboards.
 
 This repository is intended for:
 - Local deployments

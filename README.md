@@ -1,8 +1,8 @@
-In order to launch this h360tk_demo on local:
+In order to launch this h360tk_central_core on local:
 
 ```
-git clone https://github.com/simpledotorg/h360tk_demo.git
-cd h360tk_demo
+git clone https://github.com/simpledotorg/h360tk_central_core.git
+cd h360tk_central_core
 docker compose up -d
 ```
 
@@ -51,7 +51,7 @@ If you are setting up this system on a fresh server, you can use the provided in
 ### Run the Installer
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/simpledotorg/h360tk_demo/main/deployer.sh | bash
+curl -fsSL https://raw.githubusercontent.com/simpledotorg/h360tk_central_core/main/deployer.sh | bash
 ```
 
 ### What this does
@@ -67,8 +67,8 @@ curl -fsSL https://raw.githubusercontent.com/simpledotorg/h360tk_demo/main/deplo
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/simpledotorg/h360tk_demo.git
-cd h360tk_demo
+git clone https://github.com/simpledotorg/h360tk_central_core.git
+cd h360tk_central_core
 ```
 #### HOST_UID and HOST_GID Configuration (To be used if you are setting this up on a remote server other than localhost)
 If are using localhost, skip this and move to Step 2, and start the docker containers.
