@@ -21,6 +21,7 @@ services:
        - postgres
        - -c
        - app.is_central_node=true
+       # to skip hourly auto-refresh and hide leaf-only UI on the central node.
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
       interval: 5s
