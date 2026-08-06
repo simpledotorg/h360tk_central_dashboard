@@ -8,6 +8,7 @@ services:
     environment:
       - GF_DATABASE_URL=postgres://grafana:ZDI5MGE3YmYyMTRlNGNmYThkMTYyZjk3@postgres:5432/${POSTGRES_DB}
       - GF_SECURITY_ADMIN_PASSWORD=Admin@Heart360
+      - IS_CENTRAL_NODE=true
 
   postgres:
     image: simpledotorg/heart360tk-postgresql:${HEART360TK_VERSION}
