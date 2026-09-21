@@ -4,23 +4,22 @@ Central Grafana UI is reachable and login works.
 
 ## Sub-features
 
-- `central-grafana-login` — Login page/HTTP OK (host `:3000`, or `:13000` with verify override)
-- `central-home` — Provisioned HEARTS360 dashboard `heart360-home` loads after login
+- `central-grafana-login` — Login page/HTTP OK on `:3000` (or `:13000` with verify override)
+- `central-home` — A HEARTS360 dashboard loads after login (image home `/d/heart360_drilldown`)
 
 ## How to get to it (user POV)
 
-- Open `http://127.0.0.1:3000` (or `:13000` with override) and sign in as `admin` using `GF_SECURITY_ADMIN_PASSWORD` from compose
+- Open `http://127.0.0.1:3000` (or `:13000` with override) and sign in as `admin` using `GF_SECURITY_ADMIN_PASSWORD` from `docker-compose.yml`
 
 ## Driving it with browser
 
-Preconditions: compose up; doctor OK (Grafana answering, not crash-looping).
+Preconditions: compose up; doctor OK (Grafana HTTP 200 on the port you launched).
 
-- Action: open Grafana → login → open `/d/heart360-home/` (or API `GET /api/dashboards/uid/heart360-home`)
-- Observe: Grafana shell + Home dashboard JSON/UI without fatal auth errors
-- Evidence: screenshot and/or API search listing HEARTS360 Dashboards
+- Action: open Grafana → login → open a provisioned HEARTS360 dashboard (`heart360_drilldown` or folder **HEARTS360 Dashboards**)
+- Observe: Grafana shell + dashboard without fatal panel errors
+- Evidence: screenshot and/or API login + `/api/search` listing under evidence/
 
 ## Gotchas
 
-- Conflicts with grafana_core on `:3000` and shared container names `grafana`/`postgres` — use [helpers/compose.verify-override.yml](../helpers/compose.verify-override.yml) rather than stopping an unrelated stack
-- Bind-mounted `./.database` can fail Postgres init on Docker Desktop (ownership); override uses a named volume so Grafana’s `grafana` DB role is created
-- Dashboards are baked into `simpledotorg/heart360tk-grafana` — not mounted from this repo
+- Conflicts with grafana_core on `:3000` / container name `grafana` — use `helpers/compose.verify-override.yml` (Grafana `:13000`); do not stop the other stack
+- Fresh Postgres must finish image init (creates `grafana` DB role). Override uses a named volume when `./.database` bind-mount init fails on Docker Desktop

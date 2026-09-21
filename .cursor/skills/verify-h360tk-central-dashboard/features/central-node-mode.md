@@ -1,6 +1,6 @@
 # Central node mode
 
-Postgres / app configured as central node (aggregates, leaf-only UI suppressed).
+Postgres / app configured as central node (aggregates; leaf-only UI suppressed).
 
 ## Sub-features
 
@@ -8,18 +8,18 @@ Postgres / app configured as central node (aggregates, leaf-only UI suppressed).
 
 ## How to get to it (user POV)
 
-- Operators deploy this compose; leaf-only UI should not be the primary experience
+- Operators deploy this compose (not leaf demo). Expect national dashboards; leaf-only flows suppressed (Overdue Patient List tab / overdue access denied; Admin Refresh button hidden; hourly matview refresh no-op)
 
 ## Driving it with browser / docker
 
-Preconditions: stack up with a successfully initialized Postgres (`heart360tk_database` exists).
+Preconditions: stack up; Postgres finished init (`heart360tk_database` exists).
 
-- Action: `docker compose config` / inspect postgres service command includes `app.is_central_node=true`; query `SHOW app.is_central_node;` as image superuser `heart360tk_root` on `heart360tk_database`
-- Observe: setting `true`; Grafana loads without requiring leaf upload UX (Overdue tab gated in image dashboards)
-- Evidence: snippet of `docker compose config` or query output saved under evidence/
+- Action: `docker compose config` shows `app.is_central_node=true`; query `SHOW app.is_central_node;` as image superuser `heart360tk_root` (or equivalent); optionally confirm provisioned dashboards reference `is_central_node` / `IsCentralNode`
+- Observe: GUC is `true` / `on`; Grafana loads without requiring leaf overdue / refresh UX
+- Evidence: snippet of `docker compose config` and query output under evidence/
 
 ## Gotchas
 
 - Do not use leaf demo compose as proof of central mode
-- Doctor default user is **`heart360tk_root`**, not `heart360tk`
-- If `./.database` bind-mount init failed, the GUC may be unsettable until Postgres is healthy on a clean volume (use verify override named volume)
+- Doctor `psql` user is `heart360tk_root` (image default), not necessarily `.env` `POSTGRES_USER`
+- Compose healthcheck still targets `db_prod` while the DB name is `heart360tk_database` — health may be misleading (product drift in compose)

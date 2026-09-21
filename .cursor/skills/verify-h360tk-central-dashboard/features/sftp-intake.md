@@ -4,24 +4,22 @@ SFTP service for leaf nodes to drop aggregate uploads.
 
 ## Sub-features
 
-- `sftp-up` — SFTP container listening (host `2222` per product compose, or `12222` with verify override)
-- `sftp-config` — `sftp_config/users.conf` mounted
+- `sftp-up` — SFTP container listening (host `2222` per compose; `12222` with verify override)
+- `sftp-config` — `sftp_config/users.conf` mounted; upload dir `./data/sftp-upload` → remote `/upload`
 
 ## How to get to it (user POV)
 
-- Leaf/ops connect with credentials provisioned for their upload user/folder
+- Leaf/ops connect with credentials provisioned for their upload user/folder and put `{SOURCE_KEY}.zip` under `/upload`
 
 ## Driving it with docker
 
 Preconditions: stack up.
 
-- Action: `docker compose ps sftp`; confirm port publish; confirm `sftp_config/users.conf` present
-- Observe: service Up; config file exists
-- Optional: SFTP put of a test aggregate if credentials known from local config — do not invent passwords in shared docs
-- Evidence: `ps` output; optional transfer transcript
+- Action: `docker compose ps sftp`; confirm published port (`2222` or override `12222`); confirm `sftp_config/users.conf` present; optional SFTP put into `/upload` and confirm file under `data/sftp-upload/`
+- Observe: service Up; config file exists; optional put visible on host bind mount
+- Evidence: `ps` / `port` output; optional transfer transcript (no passwords in evidence)
 
 ## Gotchas
 
-- Credentials live in local config/env — never copy them into the private knowledge repo
-- Importer reaches SFTP on the Docker network (`SFTP_HOST=sftp`, port `22`), not via the host-mapped port
-- Host port differs under [helpers/compose.verify-override.yml](../helpers/compose.verify-override.yml) (`12222`)
+- Credentials live in `sftp_config/users.conf` / `.env` — never copy secrets into the private knowledge repo or commit them into evidence
+- Importer reaches SFTP on Docker network `sftp:22`; leaves usually use host `2222` (or `12222` when verifying beside grafana_core)
