@@ -68,7 +68,5 @@ services:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_KEY=${S3_SECRET_KEY}
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
- 
-
-volumes:
-  pgdata: 
+    volumes:
+      - ./config/orgunit_mapping:/config/orgunit_mapping:ro
