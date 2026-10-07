@@ -1,0 +1,75 @@
+#In the case of
+
+h360tk_philippines:
+  mappings:
+    # name to name: same names, placed under the given parents
+    - sourceOrgUnitName: "Facility-B"
+      targetOrgUnitName: "Facility- c"
+      targetOrgUnitHierarchy:
+        - "Region-B"
+        - "District-B"
+
+    - sourceOrgUnitName: "Subfacility-B"
+      targetOrgUnitName: "Subfacility-B"
+      targetOrgUnitHierarchy:
+        - "Region-B"
+        - "District-B"
+        - "Facility-B"
+
+h360tk_indonesia:
+  mappings:
+    # name to id: find the leaf unit by name, use ID 39 in Central
+    # (name stays the leaf node's name)
+    - sourceOrgUnitName: "Facility-C"
+      targetOrgUnitId: "39"  
+      targetOrgUnitHierarchy:
+        - "Region"
+        - "District"
+
+    # id to id: find the leaf unit by ID 2, use ID 47 in Central
+    # (name stays the leaf node's name)
+    - sourceOrgUnitId: "2"
+      targetOrgUnitId: "47"   
+      targetOrgUnitHierarchy:
+        - "Region"
+        - "District"
+        - "Facility-C"
+
+    # id to name: find the leaf unit by ID 3, use the name "Village-C" in Central
+    - sourceOrgUnitId: "3"
+      targetOrgUnitName: "Village-C"
+      targetOrgUnitHierarchy:
+        - "Region"
+        - "District"
+        - "Facility-C"
+        - "Subfacility-C"
+
+h360tk_demo:
+  mappings:
+    # name to id + name: use ID 133 and the name "Region" in Central
+    - sourceOrgUnitName: "Region"
+      targetOrgUnitId: "133"     #id on which we want to map the orgunit of leaf node on to the central node
+      targetOrgUnitName: "Region"
+      targetOrgUnitHierarchy: []
+
+    # name to name: same name, under Region
+    - sourceOrgUnitName: "District"
+      targetOrgUnitName: "District"
+      targetOrgUnitHierarchy:
+        - "Region"
+
+    # name to id: use ID 134 (name stays the leaf node's name)
+    - sourceOrgUnitName: "Facility"
+      targetOrgUnitId: "134"   
+      targetOrgUnitHierarchy:
+        - "Region"
+        - "District"
+
+    # name to id + name: use ID 135 and the name "Subfacility"
+    - sourceOrgUnitName: "Subfacility"
+      targetOrgUnitId: "135"   
+      targetOrgUnitName: "Subfacility"
+      targetOrgUnitHierarchy:
+        - "Region"
+        - "District"
+        - "Facility"
