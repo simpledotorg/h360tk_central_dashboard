@@ -5,6 +5,8 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
+    depends_on:
+      - postgres
     environment:
       - GF_DATABASE_URL=postgres://grafana:ZDI5MGE3YmYyMTRlNGNmYThkMTYyZjk3@postgres:5432/${POSTGRES_DB}
       - GF_SECURITY_ADMIN_PASSWORD=Admin@Heart360
@@ -16,7 +18,7 @@ services:
       - 5432:5432
     restart: unless-stopped
     volumes:
-      - ./.database:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     command:
        - postgres
        - -c
@@ -66,4 +68,7 @@ services:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_KEY=${S3_SECRET_KEY}
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
-  
+ 
+
+volumes:
+  pgdata: 
