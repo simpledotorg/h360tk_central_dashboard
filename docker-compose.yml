@@ -68,3 +68,6 @@ services:
       - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
     volumes:
       - ./config/orgunit_mapping:/config/orgunit_mapping:ro
+
+volumes:
+  pgdata:
