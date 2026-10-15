@@ -1,0 +1,38 @@
+# Verify-skill only. Use when host :3000/:5432 (or container names grafana/postgres)
+# are already taken by another stack (commonly h360tk_grafana_core), or when the
+# bind-mounted `./.database` fails Postgres init on Docker Desktop (wrong ownership
+# → skips POSTGRES_DB / grafana role creation → Grafana crash-loops).
+# Does not edit product docker-compose.yml.
+#
+# From repo root:
+#   docker compose -p h360tk_central_verify \
+#     -f docker-compose.yml \
+#     -f .cursor/skills/verify-h360tk-central-dashboard/helpers/compose.verify-override.yml \
+#     up -d
+#
+# Host ports: Grafana 13000, Postgres 15432, SFTP 12222
+# Requires Compose that supports YAML merge tag !override on sequence fields.
+
+services:
+  grafana:
+    container_name: h360tk-central-verify-grafana
+    ports: !override
+      - "13000:3000"
+
+  postgres:
+    container_name: h360tk-central-verify-postgres
+    ports: !override
+      - "15432:5432"
+    volumes: !override
+      - h360tk_central_verify_pgdata:/var/lib/postgresql/data
+
+  sftp:
+    container_name: h360tk-central-verify-sftp
+    ports: !override
+      - "12222:22"
+
+  importer:
+    container_name: h360tk-central-verify-importer
+
+volumes:
+  h360tk_central_verify_pgdata:
